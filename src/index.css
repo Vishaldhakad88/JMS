@@ -1,0 +1,21 @@
+@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* small 3D effect helper for icons/cards */
+.icon-3d {
+  filter: drop-shadow(0 6px 10px rgba(0,0,0,0.12));
+  transform: translateZ(0);
+  transition: transform 200ms ease, filter 200ms ease;
+}
+.icon-3d:hover {
+  transform: translateY(-6px) scale(1.03);
+  filter: drop-shadow(0 12px 18px rgba(0,0,0,0.16));
+}
+
+/* carousel basic override */
+.carousel-track {
+  scroll-behavior: smooth;
+}
+
