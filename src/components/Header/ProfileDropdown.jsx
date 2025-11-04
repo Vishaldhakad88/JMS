@@ -4,6 +4,7 @@ import { FiChevronDown } from "react-icons/fi";
 import {
   LayoutDashboard,
   ShoppingBag,
+  Heart,
   User,
   Lock,
   MapPin,
@@ -39,7 +40,7 @@ export default function ProfileDropdown() {
       </button>
 
       {open && (
-        <div className="absolute right-0 mt-2 w-56 bg-white shadow-lg rounded-md p-2">
+        <div className="absolute right-0 mt-2 w-56 bg-white shadow-lg rounded-md p-2 border border-gray-100 z-50">
           <Link
             to="/dashboard"
             className="flex items-center gap-2 px-3 py-2 rounded hover:bg-gray-50"
@@ -52,6 +53,14 @@ export default function ProfileDropdown() {
             className="flex items-center gap-2 px-3 py-2 rounded hover:bg-gray-50"
           >
             <ShoppingBag size={16} /> Order History
+          </Link>
+
+          {/* ✅ Added Wishlist Link */}
+          <Link
+            to="/wishlist"
+            className="flex items-center gap-2 px-3 py-2 rounded hover:bg-gray-50"
+          >
+            <Heart size={16} className="text-pink-500" /> Wishlist
           </Link>
 
           <Link
@@ -76,7 +85,7 @@ export default function ProfileDropdown() {
           </Link>
 
           <button
-            className="w-full flex items-center gap-2 text-left px-3 py-2 rounded hover:bg-gray-50 text-red-600"
+            className="w-full flex items-center gap-2 text-left px-3 py-2 rounded hover:bg-red-50 text-red-600"
           >
             <LogOut size={16} /> Logout
           </button>

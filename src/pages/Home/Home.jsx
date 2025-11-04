@@ -7,6 +7,8 @@ import Footer from "../../components/Footer/Footer";
 import MobileNavBar from "./MobileNavBar";
 import PopularProducts from "../../components/Products/Products";
 import SellAdSection from "../../components/SellAdSection/SellAdSection";
+import Stories from "../../components/Stories/Stories";
+import PhotoGallery from "../../components/PhotoGallery/PhotoGallery";
 
 export default function Home() {
   return (
@@ -19,6 +21,10 @@ export default function Home() {
           <Carousel />
         </section>
 
+        <section className="mt-4">
+          <Stories  />
+        </section>
+
         <section className="mt-6">
           <CardsGrid />
         </section>
@@ -27,9 +33,14 @@ export default function Home() {
           <PopularProducts />
         </section>
         
-     <section className="mt-6">
+        <section className="mt-6">
           <SellAdSection />
         </section>
+        <section className="mt-6">
+          <PhotoGallery />
+        </section>
+
+
       </main>
 
       <Footer />

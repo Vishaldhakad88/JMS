@@ -19,3 +19,46 @@
   scroll-behavior: smooth;
 }
 
+/* App.css ya global CSS file */
+
+/* ✅ Base layout for main app container */
+.app-container {
+  position: relative;
+  min-height: 100vh; /* full viewport height */
+  padding-bottom: 60px; /* height of mobile navbar so content doesn't overlap */
+  box-sizing: border-box;
+  overflow-x: hidden; /* prevent horizontal scroll */
+}
+
+/* ✅ Page content (main routes) */
+.page-content {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden; /* prevent horizontal scroll */
+}
+
+/* ✅ Mobile navbar fixed at bottom */
+.MobileNavBar {
+  position: fixed;      /* fixed to viewport */
+  bottom: 0;
+  left: 0;
+  width: 100%;          /* full width */
+  height: 60px;         /* adjust height as needed */
+  background-color: #fff;
+  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;        /* on top of everything */
+  overflow: hidden;     /* prevent internal scroll */
+}
+
+/* ✅ Prevent scrollbars on landscape mobile */
+@media only screen and (max-width: 768px) and (orientation: landscape) {
+  html, body, #root {
+    overflow-x: hidden; /* no horizontal scroll */
+    overflow-y: auto;   /* vertical scroll only if needed */
+    max-height: 100vh;  /* prevent vertical overflow */
+  }
+
+  .app-container {
+    padding-bottom: 60px; /* same as navbar height */
+  }
+}
