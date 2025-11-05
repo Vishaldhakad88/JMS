@@ -36,9 +36,9 @@ export default function Home() {
         <section className="mt-6">
           <SellAdSection />
         </section>
-        <section className="mt-6">
+        {/* <section className="mt-6">
           <PhotoGallery />
-        </section>
+        </section> */}
 
 
       </main>

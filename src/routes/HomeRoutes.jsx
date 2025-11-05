@@ -9,6 +9,9 @@ import OrderDetails from "../pages/Dashboard/DropDown/OrderDetails";
 import Home from "../pages/Home/Home";
 import AccountLayout from "../pages/Dashboard/DropDown/AccountLayout";
 import Wishlist from "../components/Wishlist/Wishlist";
+import Cart from "../components/Cart/Cart";
+import SearchProducts from "../components/SearchProducts/SearchProducts";
+import NotificationList from "../components/NotificationList/NotificationList";
 
 export default function HomeRoutes() {
   return (
@@ -25,7 +28,11 @@ export default function HomeRoutes() {
         {/* Dynamic Order Details Route */}
         <Route path="/orders/:orderId" element={<OrderDetails />} />
         <Route path="/wishlist" element={<Wishlist />} />
+        
       </Route>
+      <Route path="/cart" element={<Cart />} />
+      <Route path="/search" element={<SearchProducts />} />
+      <Route path="/notifications" element={<NotificationList />} />
     </Routes>
   );
 }

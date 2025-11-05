@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { FiChevronDown } from "react-icons/fi";
 import {
   LayoutDashboard,
@@ -9,6 +9,7 @@ import {
   Lock,
   MapPin,
   LogOut,
+  Bell,
 } from "lucide-react";
 
 export default function ProfileDropdown() {
@@ -41,21 +42,23 @@ export default function ProfileDropdown() {
 
       {open && (
         <div className="absolute right-0 mt-2 w-56 bg-white shadow-lg rounded-md p-2 border border-gray-100 z-50">
+          {/* 🟢 Dashboard */}
           <Link
             to="/dashboard"
             className="flex items-center gap-2 px-3 py-2 rounded hover:bg-gray-50"
           >
-            <LayoutDashboard size={16} /> Dashboard
+            <LayoutDashboard size={16} className="text-blue-500" /> Dashboard
           </Link>
 
+          {/* 🟣 Orders */}
           <Link
             to="/orders"
             className="flex items-center gap-2 px-3 py-2 rounded hover:bg-gray-50"
           >
-            <ShoppingBag size={16} /> Order History
+            <ShoppingBag size={16} className="text-purple-500" /> Order History
           </Link>
 
-          {/* ✅ Added Wishlist Link */}
+          {/* 💖 Wishlist */}
           <Link
             to="/wishlist"
             className="flex items-center gap-2 px-3 py-2 rounded hover:bg-gray-50"
@@ -63,31 +66,45 @@ export default function ProfileDropdown() {
             <Heart size={16} className="text-pink-500" /> Wishlist
           </Link>
 
+          {/* 🔔 Notifications / Alerts */}
+          <NavLink
+            to="/notifications"
+            className={({ isActive }) =>
+              `flex items-center gap-2 px-3 py-2 rounded hover:bg-gray-50 ${
+                isActive ? "text-orange-500 font-medium" : "text-gray-700"
+              }`
+            }
+          >
+            <Bell size={16} className="text-orange-500" /> Alerts
+          </NavLink>
+
+          {/* 👤 Account */}
           <Link
             to="/account"
             className="flex items-center gap-2 px-3 py-2 rounded hover:bg-gray-50"
           >
-            <User size={16} /> Account Info
+            <User size={16} className="text-teal-500" /> Account Info
           </Link>
 
+          {/* 🔐 Change Password */}
           <Link
             to="/change-password"
             className="flex items-center gap-2 px-3 py-2 rounded hover:bg-gray-50"
           >
-            <Lock size={16} /> Change Password
+            <Lock size={16} className="text-yellow-500" /> Change Password
           </Link>
 
+          {/* 📍 Address */}
           <Link
             to="/address"
             className="flex items-center gap-2 px-3 py-2 rounded hover:bg-gray-50"
           >
-            <MapPin size={16} /> Address
+            <MapPin size={16} className="text-green-600" /> Address
           </Link>
 
-          <button
-            className="w-full flex items-center gap-2 text-left px-3 py-2 rounded hover:bg-red-50 text-red-600"
-          >
-            <LogOut size={16} /> Logout
+          {/* 🔴 Logout */}
+          <button className="w-full flex items-center gap-2 text-left px-3 py-2 rounded hover:bg-red-50 text-red-600">
+            <LogOut size={16} className="text-red-600" /> Logout
           </button>
         </div>
       )}
