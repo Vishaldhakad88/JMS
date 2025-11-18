@@ -6,7 +6,7 @@ const initialProducts = [
   { id: 2, name: "Ninja 4QT Air Fryer, Black", category: "Kitchen Appliances", buyingPrice: 250, sellingPrice: 430, status: "Active" },
 ];
 
-export default function ProductsTable() {
+export default function Purchase() {
   const [products, setProducts] = useState(initialProducts);
   const [showModal, setShowModal] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
@@ -57,7 +57,7 @@ export default function ProductsTable() {
         <div className="max-w-7xl mx-auto">
           {/* Header + Buttons */}
           <div className="flex flex-wrap items-center justify-between mb-6">
-            <h1 className="text-xl font-semibold text-gray-800">Products</h1>
+            <h1 className="text-xl font-semibold text-gray-800">Damages</h1>
             <div className="flex gap-3 mt-3 sm:mt-0">
               {/* Export Dropdown */}
               <div className="relative group">

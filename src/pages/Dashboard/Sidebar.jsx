@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import {
   Home,
@@ -23,6 +23,8 @@ import {
   PieChart,
   FileChartColumn,
   Settings,
+  Menu,
+  X,
 } from "lucide-react";
 
 const section = (title, items) => ({ title, items });
@@ -73,51 +75,101 @@ const SIDEBAR = [
 ];
 
 export default function Sidebar() {
-  return (
-    <aside className="w-72 bg-white border-r hidden md:block h-screen overflow-y-auto">
-      <div className="p-4">
-        {/* === Header === */}
-        <div className="flex items-center gap-3 mb-6">
-          <div className="bg-green-100 p-2 rounded-xl">
-            <LayoutDashboard className="text-green-600" size={28} />
-          </div>
-          <div>
-            <div className="font-bold text-lg">JMS Store</div>
-            <div className="text-xs text-gray-400">Admin Panel</div>
-          </div>
-        </div>
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
-        {/* === Navigation === */}
-        <nav className="space-y-5">
-          {SIDEBAR.map((sec) => (
-            <div key={sec.title}>
-              <div className="text-xs text-gray-400 px-3 uppercase mb-2 tracking-wider">
-                {sec.title}
-              </div>
-              <div className="space-y-1">
-                {sec.items.map((it) => (
-                  <NavLink
-                    to={it.to}
-                    key={it.to}
-                    className={({ isActive }) =>
-                      `flex items-center gap-3 px-4 py-2 rounded-lg transition-all duration-200
-                      ${isActive
-                        ? "bg-green-100 text-green-700 font-semibold shadow-sm"
-                        : "text-gray-700 hover:bg-gray-50 hover:text-green-600"}`
-                    }
-                  >
-                    <it.icon
-                      size={22}
-                      className="transition-transform duration-300 group-hover:scale-110"
-                    />
-                    <span>{it.label}</span>
-                  </NavLink>
-                ))}
-              </div>
+  return (
+    <>
+      {/* Mobile Toggle Button */}
+      <button
+        onClick={() => setMobileOpen(!mobileOpen)}
+        className="md:hidden fixed top-4 left-4 z-50 bg-orange-500 text-white p-2 rounded-lg"
+      >
+        {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+      </button>
+
+      {/* Sidebar */}
+     <aside
+  onMouseEnter={() => setIsExpanded(true)}
+  onMouseLeave={() => setIsExpanded(false)}
+  className={`fixed top-0 left-0 h-[calc(100vh-50px)] bg-white border-r shadow-sm 
+    transition-all duration-300 ease-in-out z-40
+    ${mobileOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
+    ${mobileOpen ? "w-72" : isExpanded ? "w-72" : "w-20"}`}
+>
+
+        <div className="p-4 flex flex-col h-full overflow-y-auto  scrollbar-hide">
+          {/* === Header === */}
+          <div className="flex items-center gap-3 mb-6">
+            <div className="bg-gradient-to-r from-orange-400 to-orange-600 p-2 rounded-xl flex-shrink-0">
+              <LayoutDashboard className="text-white" size={24} />
             </div>
-          ))}
-        </nav>
-      </div>
-    </aside>
+            {(isExpanded || mobileOpen) && (
+              <div className="transition-opacity duration-300">
+                <div className="font-bold text-lg text-gray-800">JMS Store</div>
+                <div className="text-xs text-gray-400">Admin Panel</div>
+              </div>
+            )}
+          </div>
+
+          {/* === Navigation === */}
+          <nav className="space-y-5 flex-1">
+            {SIDEBAR.map((sec) => (
+              <div key={sec.title}>
+                {(isExpanded || mobileOpen) && (
+                  <div className="text-xs text-gray-400 px-3 uppercase mb-2 tracking-wider">
+                    {sec.title}
+                  </div>
+                )}
+                <div className="space-y-1">
+                  {sec.items.map((it) => (
+                    <NavLink
+                      to={it.to}
+                      key={it.to}
+                      onClick={() => setMobileOpen(false)}
+                      className={({ isActive }) =>
+                        `flex items-center ${
+                          (isExpanded || mobileOpen)
+                            ? "justify-start gap-3 px-4"
+                            : "justify-center"
+                        } py-2 rounded-lg transition-all duration-200
+                        ${
+                          isActive
+                            ? "bg-gradient-to-r from-orange-100 to-orange-50 text-orange-700 font-semibold shadow-sm"
+                            : "text-gray-700 hover:bg-orange-50 hover:text-orange-600"
+                        }`
+                      }
+                    >
+                      <it.icon size={20} />
+                      {(isExpanded || mobileOpen) && <span>{it.label}</span>}
+                    </NavLink>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </nav>
+
+          {/* Footer */}
+          {(isExpanded || mobileOpen) && (
+            <div className="mt-auto text-xs text-gray-400 text-center py-2 border-t border-gray-100">
+              © 2025 JMS Store
+            </div>
+          )}
+        </div>
+      </aside>
+
+      {/* === Hide Scrollbar CSS === */}
+      <style>
+        {`
+          .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+          }
+          .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+          }
+        `}
+      </style>
+    </>
   );
 }

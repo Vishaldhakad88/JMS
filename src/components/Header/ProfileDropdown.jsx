@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { FiChevronDown } from "react-icons/fi";
 import {
   LayoutDashboard,
@@ -15,6 +15,7 @@ import {
 export default function ProfileDropdown() {
   const [open, setOpen] = useState(false);
   const ref = useRef();
+  const navigate = useNavigate();
 
   useEffect(() => {
     function onDoc(e) {
@@ -23,6 +24,16 @@ export default function ProfileDropdown() {
     document.addEventListener("click", onDoc);
     return () => document.removeEventListener("click", onDoc);
   }, []);
+
+  // 🔴 LOGOUT FUNCTION
+  const handleLogout = () => {
+    // yaha jo tum store karte ho wo clear karo
+    localStorage.removeItem("authToken");
+    localStorage.removeItem("userData");
+
+    // redirect to login
+    navigate("/login");
+  };
 
   return (
     <div className="relative" ref={ref}>
@@ -35,14 +46,13 @@ export default function ProfileDropdown() {
           alt="avatar"
           className="w-8 h-8 rounded-full"
         />
-        {/* Hide name on mobile */}
         <div className="hidden sm:block text-sm">JMS Store</div>
         <FiChevronDown className="hidden sm:block" />
       </button>
 
       {open && (
         <div className="absolute right-0 mt-2 w-56 bg-white shadow-lg rounded-md p-2 border border-gray-100 z-50">
-          {/* 🟢 Dashboard */}
+
           <Link
             to="/dashboard"
             className="flex items-center gap-2 px-3 py-2 rounded hover:bg-gray-50"
@@ -50,7 +60,6 @@ export default function ProfileDropdown() {
             <LayoutDashboard size={16} className="text-blue-500" /> Dashboard
           </Link>
 
-          {/* 🟣 Orders */}
           <Link
             to="/orders"
             className="flex items-center gap-2 px-3 py-2 rounded hover:bg-gray-50"
@@ -58,7 +67,6 @@ export default function ProfileDropdown() {
             <ShoppingBag size={16} className="text-purple-500" /> Order History
           </Link>
 
-          {/* 💖 Wishlist */}
           <Link
             to="/wishlist"
             className="flex items-center gap-2 px-3 py-2 rounded hover:bg-gray-50"
@@ -66,7 +74,6 @@ export default function ProfileDropdown() {
             <Heart size={16} className="text-pink-500" /> Wishlist
           </Link>
 
-          {/* 🔔 Notifications / Alerts */}
           <NavLink
             to="/notifications"
             className={({ isActive }) =>
@@ -78,7 +85,6 @@ export default function ProfileDropdown() {
             <Bell size={16} className="text-orange-500" /> Alerts
           </NavLink>
 
-          {/* 👤 Account */}
           <Link
             to="/account"
             className="flex items-center gap-2 px-3 py-2 rounded hover:bg-gray-50"
@@ -86,7 +92,6 @@ export default function ProfileDropdown() {
             <User size={16} className="text-teal-500" /> Account Info
           </Link>
 
-          {/* 🔐 Change Password */}
           <Link
             to="/change-password"
             className="flex items-center gap-2 px-3 py-2 rounded hover:bg-gray-50"
@@ -94,7 +99,6 @@ export default function ProfileDropdown() {
             <Lock size={16} className="text-yellow-500" /> Change Password
           </Link>
 
-          {/* 📍 Address */}
           <Link
             to="/address"
             className="flex items-center gap-2 px-3 py-2 rounded hover:bg-gray-50"
@@ -102,8 +106,11 @@ export default function ProfileDropdown() {
             <MapPin size={16} className="text-green-600" /> Address
           </Link>
 
-          {/* 🔴 Logout */}
-          <button className="w-full flex items-center gap-2 text-left px-3 py-2 rounded hover:bg-red-50 text-red-600">
+          {/* 🔴 Logout (WORKING NOW) */}
+          <button
+            onClick={handleLogout}
+            className="w-full flex items-center gap-2 text-left px-3 py-2 rounded hover:bg-red-50 text-red-600"
+          >
             <LogOut size={16} className="text-red-600" /> Logout
           </button>
         </div>
